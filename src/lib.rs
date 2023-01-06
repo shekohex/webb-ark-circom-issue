@@ -3,7 +3,7 @@ use std::fs::{self, File};
 use ark_bn254::Bn254;
 use ark_circom::{CircomBuilder, CircomConfig};
 use ark_ff::{BigInteger, PrimeField, ToBytes};
-use ark_groth16::{create_random_proof, verify_proof, ProvingKey};
+use ark_groth16::{create_random_proof, generate_random_parameters, verify_proof, ProvingKey};
 use arkworks_native_gadgets::{
     merkle_tree::{Path, SparseMerkleTree},
     poseidon::Poseidon,
@@ -289,6 +289,8 @@ pub fn setup_circom_zk_circuit(
     }
 
     let mut rng = rand::thread_rng();
+    let circom = builder.setup();
+    let proving_key = generate_random_parameters::<Bn254, _, _>(circom, &mut rng).unwrap();
     let circom = builder.build().unwrap();
     let cs = ConstraintSystem::<Bn254Fr>::new_ref();
     circom.clone().generate_constraints(cs.clone()).unwrap();
