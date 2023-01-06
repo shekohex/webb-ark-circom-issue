@@ -1,0 +1,17 @@
+[package]
+name = "webb-ark-circom-repo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ark-bn254 = { version = "^0.3.0", default-features = false, features = [ "curve" ] }
+arkworks-setups = { version = "1.2.1", features = ["r1cs"], default-features = false }
+arkworks-native-gadgets = { version = "1.2.0", default-features = false }
+ark-ff = { version = "^0.3.0", default-features = false}
+ark-relations = { version = "^0.3.0", default-features = false }
+ark-groth16 = { git = "https://github.com/arkworks-rs/groth16", rev = "765817f", features = ["parallel"] }
+ark-circom = { git = "https://github.com/gakonst/ark-circom.git", features = ["circom-2"] }
+rand = "0.8.4"
+num-bigint = "0.4"
+ethabi = { version = "15.0.0", default-features = false }
+
